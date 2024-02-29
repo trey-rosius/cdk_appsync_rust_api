@@ -1,0 +1,35 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Query {
+  getTodo(id: String!): Todo! @aws_api_key
+  getAllTodos: [Todo!]! @aws_api_key
+}
+
+type Mutation {
+  createTodo(input: TodoInput!): Todo! @aws_api_key
+  updateTodo(input: updateTodoInput!): Todo! @aws_api_key
+  deleteTodo(id: String!): Boolean!
+}
+
+type Todo @aws_api_key {
+  id: ID!
+  completed: Boolean!
+  content: String!
+  createdOn: AWSTimestamp
+  updatedOn: AWSTimestamp
+}
+
+input TodoInput @aws_api_key {
+  completed: Boolean!
+  content: String!
+}
+
+input updateTodoInput @aws_api_key {
+  id: ID!
+  completed: Boolean!
+  content: String!
+}
